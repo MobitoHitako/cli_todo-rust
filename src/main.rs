@@ -51,16 +51,16 @@ impl TODO {
         }
 
         if args.get(1).is_some() {
-            println!("{:?}", args.get(1));
+            // println!("{:?}", args.get(1)); // DEBUG only
 
             let is_parsable: Option<usize> = args[1].parse().ok();
             match is_parsable {
                 Some(id) => {
                     if !(id >= self.todo_list.len()) || (!id == self.todo_list.len()) {
-                        // println!("ID{} LEN{}", id, self.todo_list.len()); // DEBUG only
+                        println!("removing: {:?} at index: {}!", self.todo_list.get(id).unwrap(), id);
                         self.todo_list.remove(id);
                         self.amount -= 1;
-                    } else { println!("Cannot Remove, because ID is higher or in the minus") }
+                    } else { println!("Cannot Remove, because ID is higher/Equal or in the minus") }
                 }
                 None => {}
             }
@@ -77,7 +77,6 @@ fn main() {
     */
     //TODO_LIST 1
     let mut todo_list = TODO::create();
-
 
     println!("Welcome to the Todo Application!");
 
