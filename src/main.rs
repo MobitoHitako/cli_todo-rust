@@ -7,16 +7,16 @@ struct TODO {
     amount: u64,
 }
 
-impl TODO{
-    fn create()-> Self{
-        TODO{
+impl TODO {
+    fn create() -> Self {
+        TODO {
             todo_list: vec![],
             amount: 0,
         }
     }
 
 
-    fn add(&mut self, inputs: &Vec<&str>){
+    fn add(&mut self, inputs: &Vec<&str>) {
         if inputs.len() == 1 {
             println!("No Arguments given");
             return;
@@ -32,11 +32,11 @@ impl TODO{
         self.amount = self.todo_list.len() as u64;
     }
 
-    fn list(&self){
+    fn list(&self) {
         // println!("{:?}", self.todo_list);
         println!("Listing all currently added TODO's ");
         if self.amount == 0 {
-        println!("Current Amount is: {}, Cant list anything", self.amount);
+            println!("Current Amount is: {}, Cant list anything", self.amount);
         }
 
         for i in 0..self.todo_list.len() {
@@ -44,7 +44,7 @@ impl TODO{
         }
     }
 
-    fn remove(&mut self, args: &Vec<&str>){
+    fn remove(&mut self, args: &Vec<&str>) {
         if self.amount == 0 {
             println!("Cannot Remove, which doesnt exist.");
             return;
@@ -53,10 +53,10 @@ impl TODO{
         if args.get(1).is_some() {
             println!("{:?}", args.get(1));
 
-            let is_parsable:Option<usize> = args[1].parse().ok();
+            let is_parsable: Option<usize> = args[1].parse().ok();
             match is_parsable {
                 Some(id) => {
-                    if !(id >= self.todo_list.len()) || (!id == self.todo_list.len()){
+                    if !(id >= self.todo_list.len()) || (!id == self.todo_list.len()) {
                         // println!("ID{} LEN{}", id, self.todo_list.len()); // DEBUG only
                         self.todo_list.remove(id);
                         self.amount -= 1;
@@ -67,7 +67,6 @@ impl TODO{
             // println!("{:?}", is_parsable); // DEBUG only
         }
     }
-
 }
 
 
@@ -89,7 +88,7 @@ fn main() {
             .expect("failed to read line");
 
         let binding = String::from(input);
-        let args:Vec<&str> = binding.trim().split_terminator(" ").collect();
+        let args: Vec<&str> = binding.trim().split_terminator(" ").collect();
         println!("Arguments Given: {:?}", args);
 
         let args_0 = String::from(args[0]).to_lowercase();
@@ -105,17 +104,9 @@ fn main() {
             todo_list.remove(&args);
         }
 
-        if args_0.starts_with("exit") | args_0.starts_with("e")  {
+        if args_0.starts_with("exit") | args_0.starts_with("e") {
             println!("Exiting Program");
             break;
         }
     }
-
-
-
-
-
-
-
-
 }
