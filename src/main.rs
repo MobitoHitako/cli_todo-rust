@@ -34,7 +34,10 @@ impl TODO{
 
     fn list(&self){
         // println!("{:?}", self.todo_list);
+        println!("Listing all currently added TODO's ");
+        if self.amount == 0 {
         println!("Current Amount is: {}, Cant list anything", self.amount);
+        }
 
         for i in 0..self.todo_list.len() {
             println!("index: {}, Content: {}", i, self.todo_list.get(i).unwrap());
@@ -47,10 +50,22 @@ impl TODO{
             return;
         }
 
+        if args.get(1).is_some() {
+            println!("{:?}", args.get(1));
 
-        //TODO Change Value
-        self.todo_list.remove(args[1].parse().unwrap());
-        self.amount -= 1;
+            let is_parsable:Option<usize> = args[1].parse().ok();
+            match is_parsable {
+                Some(id) => {
+                    if !(id >= self.todo_list.len()) || (!id == self.todo_list.len()){
+                        // println!("ID{} LEN{}", id, self.todo_list.len()); // DEBUG only
+                        self.todo_list.remove(id);
+                        self.amount -= 1;
+                    } else { println!("Cannot Remove, because ID is higher or in the minus") }
+                }
+                None => {}
+            }
+            // println!("{:?}", is_parsable); // DEBUG only
+        }
     }
 
 }
@@ -83,15 +98,11 @@ fn main() {
         }
 
         if args_0.starts_with("list") {
-            println!("Listing all currently added TODO's ");
             todo_list.list();
         }
 
         if args_0.starts_with("remove") | args_0.starts_with("r") {
-            //TODO Implement REMOVE
-
-            // todo_list.remove(&args);
-            println!("Not Implement yet, unlucky");
+            todo_list.remove(&args);
         }
 
         if args_0.starts_with("exit") | args_0.starts_with("e")  {
